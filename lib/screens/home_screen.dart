@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:facebook_clone/config/palette.dart';
+import 'package:facebook_clone/data/data.dart';
+import 'package:facebook_clone/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,13 +15,13 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
+            systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarBrightness: Brightness.light,
             ), // Instead of simple brightness
             backgroundColor: Colors.white,
-            title: Text(
+            title: const Text(
               'facebook',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Palette.facebookBlue,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -28,6 +30,21 @@ class HomeScreen extends StatelessWidget {
             ),
             centerTitle: false,
             floating: true,
+            actions: [
+              CircleButton(
+                icon: Icons.search,
+                iconSize: 30,
+                onPressed: () => log('Search'),
+              ),
+              CircleButton(
+                icon: MdiIcons.facebookMessenger,
+                iconSize: 30,
+                onPressed: () => log('Messenger'),
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: CreatePostContainer(currentUser: currentUser),
           ),
         ],
       ),
